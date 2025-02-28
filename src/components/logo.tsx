@@ -9,7 +9,7 @@ const Logo = () => {
     <>
       <Link href="/" className="hidden md:block">
         <Image
-          src="/images/logo.png"
+          src="/next.svg"
           alt="Logo"
           width="150"
           height="45"
