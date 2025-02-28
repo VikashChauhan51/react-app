@@ -1,66 +1,21 @@
 "use client";
 import Link from "next/link";
+import Logo from "./logo";
+import SignIn from "./signin";
+import ToggleButton from "./toggle";
 
-import React, { useState } from "react";
-
-export default function Navbar () {
-
-    const [nav, setNav] = useState(false);
-
-
-
-    const links = [
-    
-        {
-    
-          id: 1,
-    
-          link: "home",
-    
-        },
-    
-        {
-    
-          id: 2,
-    
-          link: "about",
-    
-        },
-    
-        {
-    
-          id: 3,
-    
-          link: "portfolio",
-    
-        },
-    
-        {
-    
-          id: 4,
-    
-          link: "experience",
-    
-        },
-    
-        {
-    
-          id: 5,
-    
-          link: "contact",
-    
-        },
-    
-      ];
-    
-
+const Navbar = ({
+  toggle,
+}: {
+  toggle: () => void;
+}) => {  
       
     return (
         <>
         <div className="w-full h-20 bg-emerald-800 sticky top-0">
           <div className="container mx-auto px-4 h-full">
             <div className="flex justify-between items-center h-full">
-              {/* <Logo /> */}
+              <Logo /> 
               <ul className="hidden md:flex gap-x-6 text-white">
                 <li>
                   <Link href="/about">
@@ -78,10 +33,19 @@ export default function Navbar () {
                   </Link>
                 </li>
               </ul>
-              {/* <Button /> */}
+              <div className="hidden md:block">
+              <SignIn  />
+              </div>
+              
+              <div className="block md:hidden">
+              <ToggleButton  toggle={toggle} />
+              </div>
+
             </div>
           </div>
         </div>
       </>
     );
 }
+
+export default Navbar;
