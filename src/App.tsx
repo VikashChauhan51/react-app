@@ -7,14 +7,14 @@ import {
 import './App.css'
 import Home from './Home'
 import About from './About'
-import Navigation from './components/navigation'
+import Navbar from './components/navbar'
 
 function App() {
    
 
   return (
     <BrowserRouter>
-    <Navigation />
+    <Navbar />
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
