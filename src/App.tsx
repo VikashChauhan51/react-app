@@ -1,25 +1,26 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 import './App.css'
-import { Flex, Text, Button } from "@radix-ui/themes";
-import { FaceIcon, ImageIcon, SunIcon } from "@radix-ui/react-icons"
+import Home from './Home'
+import About from './About'
+import Navigation from './components/navigation'
 
 function App() {
    
 
   return (
-    <>
-    <Flex direction="column" gap="2">
-			<Text>Hello from Radix Themes :)</Text>
-			<Button>Let's go</Button>
-      <div>
-			<FaceIcon color='green' />
-			<SunIcon color='red' />
-			<ImageIcon color='blue' />
-		</div>
-		</Flex>
-    </>
+    <BrowserRouter>
+    <Navigation />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+    </Routes>
+    </BrowserRouter>
+
   )
 }
 
