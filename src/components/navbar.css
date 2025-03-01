@@ -1,0 +1,123 @@
+@import "@radix-ui/colors/black-alpha.css";
+@import "@radix-ui/colors/white-alpha.css";
+@import "@radix-ui/colors/indigo.css";
+@import "@radix-ui/colors/mauve.css";
+@import "@radix-ui/colors/purple.css";
+@import "@radix-ui/colors/violet.css";
+@import "@radix-ui/colors/jade.css";
+@import "@radix-ui/colors/sky.css";
+@import "@radix-ui/colors/gray.css";
+@import "@radix-ui/colors/sage.css";
+/* Main Navbar Styling */
+.navbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.5rem 1rem;
+	background: var(--jade-9)
+  }
+  
+  ul{
+	  list-style-type: none;
+  }
+  li a{
+	  text-decoration: none;
+	  color: var(--white-a12);
+  }
+  /* Logo styling */
+  .logo a {
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 1.25rem;
+	color: var(--sage-12);
+  }
+  
+  /* Desktop Menu (center and right) */
+  .desktop-menu {
+	display: flex;
+	align-items: center;
+	flex: 1;
+	justify-content: space-between;
+	margin-left: 2rem;
+  }
+  
+  /* Center links */
+  .navbar-center {
+	display: flex;
+	gap: 1rem;
+  }
+  
+  /* Sign In button styling */
+  .signin-btn {
+	padding: 0.5rem 1rem;
+	border: 1px solid var(--sage-12);
+	border-radius: 4px;
+	text-decoration: none;
+	background-color: var(--sage-12);
+	color: var(--white-a12);
+  }
+  
+  /* Mobile-only toggle button */
+  .mobile-only {
+	display: none;
+  }
+  
+  /* Hamburger button (mobile) */
+  .hamburger-btn {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0.5rem;
+  }
+  
+  /* Mobile Side Menu */
+  .mobile-side-menu {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 75%;
+	background: var(--sage-12);
+	box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+	z-index: 1000;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+  }
+  
+  /* Mobile Side Menu Header */
+  .mobile-side-menu-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+  }
+  
+  /* Close button (mobile) */
+  .close-btn {
+	background:  none;
+	border: none;
+	cursor: pointer;
+	padding: 0.5rem;
+  }
+  
+  /* Mobile side menu navigation links */
+  .mobile-side-menu-links {
+	margin-top: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+  }
+  .mobile-side-menu a {
+	color: var(--white-a12);
+	text-decoration: none;
+  }
+  
+  /* Media Query for Mobile Devices */
+  @media (max-width: 768px) {
+	.desktop-menu {
+	  display: none;
+	}
+	.mobile-only {
+	  display: block;
+	}
+  }
