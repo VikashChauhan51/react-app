@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { Link } from 'react-router-dom';
-import './Navbar.css';
+import './navbar.css';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -143,7 +143,7 @@ const Navbar = () => {
             <Link to="/sign-up" onClick={toggleMobileMenu}>
               Sign Up
             </Link>
-            <Link to="/signin" onClick={toggleMobileMenu} className="signin-btn">
+            <Link to="/signin" onClick={toggleMobileMenu}>
               Sign In
             </Link>
           </nav>

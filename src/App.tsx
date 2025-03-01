@@ -8,6 +8,7 @@ import './App.css'
 import Home from './Home'
 import About from './About'
 import Navbar from './components/navbar'
+import Footer from './components/footer'
 
 function App() {
    
@@ -19,6 +20,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
     </Routes>
+    <Footer />
     </BrowserRouter>
 
   )
