@@ -1,56 +1,55 @@
 // components/Auth/SignIn.tsx
 import React from 'react';
 import * as Label from '@radix-ui/react-label';
-import * as Checkbox from '@radix-ui/react-checkbox';
-import { CheckIcon } from '@radix-ui/react-icons';
+import { TextField,Button,Checkbox ,Text ,Flex ,Box,Heading,Container   } from '@radix-ui/themes';
+import { Form } from "radix-ui";
 import './Auth.css';
 
 const SignIn = () => {
   return (
-    <div className="auth-container">
-      <h2 className="auth-title">Sign In</h2>
-      <form className="auth-form">
+    <Box >
+      <Container align="center" className="auth-container">
+      <Heading align="center">Sign In</Heading>
+      <Form.Root className="auth-form" >
         <div className="form-group">
           <Label.Root htmlFor="signin-email" className="form-label">
             Email
           </Label.Root>
-          <input
+          <TextField.Root
             type="email"
             id="signin-email"
             name="email"
             placeholder="you@example.com"
-            className="form-input"
-            required
+            
           />
         </div>
         <div className="form-group">
           <Label.Root htmlFor="signin-password" className="form-label">
             Password
           </Label.Root>
-          <input
+          <TextField.Root
             type="password"
             id="signin-password"
             name="password"
             placeholder="Your Password"
-            className="form-input"
-            required
+            
           />
         </div>
         <div className="form-group checkbox-group">
-          <Checkbox.Root id="remember" className="checkbox-root">
-            <Checkbox.Indicator className="checkbox-indicator">
-              <CheckIcon />
-            </Checkbox.Indicator>
-          </Checkbox.Root>
-          <Label.Root htmlFor="remember" className="checkbox-label">
-            Remember me
-          </Label.Root>
+        <Text as="label" size="2">
+	<Flex gap="2">
+		<Checkbox  />
+    Remember me
+	</Flex>
+</Text>
         </div>
-        <button type="submit" className="auth-button">
+        <Button type='submit' variant="solid">
           Sign In
-        </button>
-      </form>
-    </div>
+        </Button>
+      
+      </Form.Root>
+      </Container>
+    </Box>
   );
 };
 
