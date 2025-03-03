@@ -1,4 +1,4 @@
-import React from "react";
+import { SubmitHandler, useForm  } from "react-hook-form";
 import * as Label from "@radix-ui/react-label";
 import {
   TextField,
@@ -12,59 +12,35 @@ import {
 } from "@radix-ui/themes";
 import { Form } from "radix-ui";
 import "./Auth.css";
-import { useState } from "react";
+
 
 type SignInRequest = {
   email: string;
   password: string;
   rememberMe: boolean;
 };
-type Errors = {
-  email?: string;
-  password?: string;
-};
 
 const SignIn = () => {
-  const [signInRequest, setSignInRequest] = useState<SignInRequest>({
-    email: "",
-    password: "",
-    rememberMe: false,
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm<SignInRequest>({
+    defaultValues: {
+      email: "",
+      password: "",
+      rememberMe: false,
+    },
   });
 
-  const [errors, setErrors] = useState<Errors>({});
+  const onSubmit: SubmitHandler<SignInRequest> = (data) => console.log(data);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setSignInRequest({
-      ...signInRequest,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!signInRequest.email) {
-      setErrors({
-        ...errors,
-        email: "Email is required",
-      });
-      return;
-    }
-    if (!signInRequest.password) {
-      setErrors({
-        ...errors,
-        password: "Password is required",
-      });
-      return;
-    }
-
-    console.log(signInRequest);
-  };
   return (
     <Box>
       <Container align="center" className="auth-container">
         <Heading align="center">Sign In</Heading>
-        <Form.Root className="auth-form" onSubmit={handleSubmit}>
+        <Form.Root className="auth-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
             <Label.Root htmlFor="signin-email" className="form-label">
               Email
@@ -72,11 +48,10 @@ const SignIn = () => {
             <TextField.Root
               type="email"
               id="signin-email"
-              name="email"
               placeholder="you@example.com"
-              onChange={handleChange}
+              {...register("email", { required: true })}
             />
-            {errors.email && <div className="error">{errors.email}</div>}
+            {errors.email && <p role="alert">Email is required</p>}
           </div>
           <div className="form-group">
             <Label.Root htmlFor="signin-password" className="form-label">
@@ -85,16 +60,15 @@ const SignIn = () => {
             <TextField.Root
               type="password"
               id="signin-password"
-              name="password"
               placeholder="Your Password"
-              onChange={handleChange}
+              {...register("password", { required: true })}
             />
-            {errors.password && <div className="error">{errors.password}</div>}
+            {errors.password && <p role="alert">Password is required</p>}
           </div>
           <div className="form-group checkbox-group">
             <Text as="label" size="2">
               <Flex gap="2">
-                <Checkbox name="reremberMe" id="remember-me" />
+                <Checkbox id="remember-me"  {...register("rememberMe")} />
                 Remember me
               </Flex>
             </Text>
