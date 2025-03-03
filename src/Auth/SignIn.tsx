@@ -1,4 +1,6 @@
 import { SubmitHandler, useForm  } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as Label from "@radix-ui/react-label";
 import {
   TextField,
@@ -13,26 +15,20 @@ import {
 import { Form } from "radix-ui";
 import "./Auth.css";
 
+const SignInRequestSchema = z.object({
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z.string().min(6, { message: "Password must be at least 6 characters" }),
+ 
+});
 
-type SignInRequest = {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-};
+type SignInRequest = z.infer<typeof SignInRequestSchema>;
 
 const SignIn = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    control,
-  } = useForm<SignInRequest>({
-    defaultValues: {
-      email: "",
-      password: "",
-      rememberMe: false,
-    },
-  });
+  } = useForm<SignInRequest>({ resolver: zodResolver(SignInRequestSchema) });
 
   const onSubmit: SubmitHandler<SignInRequest> = (data) => console.log(data);
 
@@ -49,9 +45,9 @@ const SignIn = () => {
               type="email"
               id="signin-email"
               placeholder="you@example.com"
-              {...register("email", { required: true })}
+              {...register("email")}
             />
-            {errors.email && <p role="alert">Email is required</p>}
+            {errors.email && <span>{errors.email.message}</span>}
           </div>
           <div className="form-group">
             <Label.Root htmlFor="signin-password" className="form-label">
@@ -61,9 +57,9 @@ const SignIn = () => {
               type="password"
               id="signin-password"
               placeholder="Your Password"
-              {...register("password", { required: true })}
+              {...register("password" )}
             />
-            {errors.password && <p role="alert">Password is required</p>}
+            {errors.password && <span>{errors.password.message}</span>}
           </div>
           <div className="form-group checkbox-group">
             <Text as="label" size="2">
