@@ -1,4 +1,4 @@
-import { SubmitHandler, useForm  } from "react-hook-form";
+import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as Label from "@radix-ui/react-label";
@@ -17,8 +17,10 @@ import "./Auth.css";
 
 const SignInRequestSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters" }),
- 
+  password: z
+    .string()
+    .min(6, { message: "Password must be at least 6 characters" }),
+  rememberMe: z.boolean().default(false),
 });
 
 type SignInRequest = z.infer<typeof SignInRequestSchema>;
@@ -28,6 +30,7 @@ const SignIn = () => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<SignInRequest>({ resolver: zodResolver(SignInRequestSchema) });
 
   const onSubmit: SubmitHandler<SignInRequest> = (data) => console.log(data);
@@ -57,14 +60,24 @@ const SignIn = () => {
               type="password"
               id="signin-password"
               placeholder="Your Password"
-              {...register("password" )}
+              {...register("password")}
             />
             {errors.password && <span>{errors.password.message}</span>}
           </div>
           <div className="form-group checkbox-group">
             <Text as="label" size="2">
               <Flex gap="2">
-                <Checkbox id="remember-me"  {...register("rememberMe")} />
+                <Controller
+                  control={control}
+                  name="rememberMe"
+                  render={({ field: { onChange, value } }) => (
+                    <Checkbox
+                      onCheckedChange={onChange}
+                      checked={value}
+                      id="rememberMe"
+                    />
+                  )}
+                />
                 Remember me
               </Flex>
             </Text>
