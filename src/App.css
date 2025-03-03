@@ -1,0 +1,11 @@
+.text-field-error {
+
+    border: 1px solid var(--red-9);
+  }
+  
+  .error-text {
+    color: var(--red-11);
+    font-size: 0.875rem; 
+    margin-top: 0.25rem;
+  }
+  

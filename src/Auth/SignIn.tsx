@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +12,7 @@ import {
   Box,
   Heading,
   Container,
+  Skeleton,
 } from "@radix-ui/themes";
 import { Form } from "radix-ui";
 import "./Auth.css";
@@ -26,6 +28,7 @@ const SignInRequestSchema = z.object({
 type SignInRequest = z.infer<typeof SignInRequestSchema>;
 
 const SignIn = () => {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -33,7 +36,14 @@ const SignIn = () => {
     control,
   } = useForm<SignInRequest>({ resolver: zodResolver(SignInRequestSchema) });
 
-  const onSubmit: SubmitHandler<SignInRequest> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<SignInRequest> = (data) => {
+    try {
+      setLoading(true);
+      console.log(data);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Box>
@@ -49,8 +59,11 @@ const SignIn = () => {
               id="signin-email"
               placeholder="you@example.com"
               {...register("email")}
+              className={errors.email ? "text-field-error" : ""}
             />
-            {errors.email && <span>{errors.email.message}</span>}
+            {errors.email && (
+              <span className="error-text">{errors.email.message}</span>
+            )}
           </div>
           <div className="form-group">
             <Label.Root htmlFor="signin-password" className="form-label">
@@ -61,8 +74,11 @@ const SignIn = () => {
               id="signin-password"
               placeholder="Your Password"
               {...register("password")}
+              className={errors.password ? "text-field-error" : ""}
             />
-            {errors.password && <span>{errors.password.message}</span>}
+            {errors.password && (
+              <span className="error-text">{errors.password.message}</span>
+            )}
           </div>
           <div className="form-group checkbox-group">
             <Text as="label" size="2">
@@ -85,6 +101,12 @@ const SignIn = () => {
           <Button type="submit" variant="solid">
             Sign In
           </Button>
+
+          {loading && (
+            <Skeleton loading={loading}>
+               
+            </Skeleton>
+          )}
         </Form.Root>
       </Container>
     </Box>
