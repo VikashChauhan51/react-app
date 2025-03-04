@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import Profile from "./Profile";
 
 import "./navbar.css";
 import { Button } from "@radix-ui/themes";
@@ -10,12 +11,9 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
   const handleLogin = () => {
     loginWithRedirect();
-  };
-  const handleLogout = () => {
-    logout({ logoutParams: { returnTo: window.location.origin } });
   };
 
   useEffect(() => {
@@ -90,9 +88,7 @@ const Navbar = () => {
               {isAuthenticated && (
                 <NavigationMenu.Item>
                   <NavigationMenu.Link asChild>
-                    <Button onClick={handleLogout} className="signin-btn">
-                      Logout
-                    </Button>
+                    <Profile />
                   </NavigationMenu.Link>
                 </NavigationMenu.Item>
               )}
