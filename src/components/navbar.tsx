@@ -79,7 +79,7 @@ const Navbar = () => {
               {!isAuthenticated && (
                 <NavigationMenu.Item>
                   <NavigationMenu.Link asChild>
-                    <Button onClick={handleLogin} className="signin-btn">
+                    <Button onClick={handleLogin}  color="gray"   variant="outline"  highContrast>
                       Sign In
                     </Button>
                   </NavigationMenu.Link>

@@ -1,11 +1,12 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Avatar, Flex, Skeleton,Button } from "@radix-ui/themes";
+import { Avatar, Flex, Skeleton, Button } from "@radix-ui/themes";
 import { DropdownMenu } from "radix-ui";
 import "./Profile.css";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading, logout } = useAuth0();
   const fallback = user?.name ? user.name[0] : "A";
+
   const handleLogout = () => {
     logout({ logoutParams: { returnTo: window.location.origin } });
   };
@@ -35,13 +36,14 @@ const Profile = () => {
           <DropdownMenu.Portal>
             <DropdownMenu.Content
               className="DropdownMenuContent"
-              sideOffset={5}
+              sideOffset={7} 
+              align="end" 
+              avoidCollisions={true} 
             >
               <DropdownMenu.Item className="DropdownMenuItem">
                 {user?.name}
               </DropdownMenu.Item>
               <DropdownMenu.Item className="DropdownMenuItem">
-                
                 <Button className="Button" onClick={handleLogout}>
                   Logout
                 </Button>
