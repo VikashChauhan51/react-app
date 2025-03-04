@@ -1,14 +1,22 @@
+import { useState, useEffect } from "react";
+import * as NavigationMenu from "@radix-ui/react-navigation-menu";
+import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
-import { useState, useEffect } from 'react';
-import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import { Link } from 'react-router-dom';
-import './navbar.css';
+import "./navbar.css";
+import { Button } from "@radix-ui/themes";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
+  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  const handleLogin = () => {
+    loginWithRedirect();
+  };
+  const handleLogout = () => {
+    logout({ logoutParams: { returnTo: window.location.origin } });
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -19,8 +27,8 @@ const Navbar = () => {
       }
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [mobileMenuOpen]);
 
   return (
@@ -70,13 +78,24 @@ const Navbar = () => {
               </NavigationMenu.Item>
             </div>
             <div className="navbar-right">
-              <NavigationMenu.Item>
-                <NavigationMenu.Link asChild>
-                  <Link to="/signin" className="signin-btn">
-                    Sign In
-                  </Link>
-                </NavigationMenu.Link>
-              </NavigationMenu.Item>
+              {!isAuthenticated && (
+                <NavigationMenu.Item>
+                  <NavigationMenu.Link asChild>
+                    <Button onClick={handleLogin} className="signin-btn">
+                      Sign In
+                    </Button>
+                  </NavigationMenu.Link>
+                </NavigationMenu.Item>
+              )}
+              {isAuthenticated && (
+                <NavigationMenu.Item>
+                  <NavigationMenu.Link asChild>
+                    <Button onClick={handleLogout} className="signin-btn">
+                      Logout
+                    </Button>
+                  </NavigationMenu.Link>
+                </NavigationMenu.Item>
+              )}
             </div>
           </div>
 
